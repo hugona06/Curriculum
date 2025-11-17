@@ -1,24 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="barra-superior">
+    <a href="{{ route('curriculums.index') }}">⬅ Volver a listado de Curriculums</a>
+</div>
+
 <div class="container">
-
-    <div class="barra-superior">
-        <a href="{{ route('curriculums.index') }}" class="boton-volver">⬅ Volver a listado de Curriculums</a>
+    <div class="show-card">
+        @if($curriculum->fotografia)
+            <img src="{{ asset('storage/' . $curriculum->fotografia) }}" alt="{{ $curriculum->nombre }}" class="show-foto">
+        @endif
+        <div class="show-info">
+            <h1>{{ $curriculum->nombre }} {{ $curriculum->apellidos }}</h1>
+            <p><strong>Teléfono:</strong> {{ $curriculum->telefono }}</p>
+            <p><strong>Correo:</strong> {{ $curriculum->correo }}</p>
+            <p><strong>Fecha de nacimiento:</strong> {{ $curriculum->fecha_nacimiento->format('d/m/Y') }}</p>
+            <p><strong>Nota media:</strong> {{ $curriculum->nota_media }}</p>
+            <p><strong>Experiencia:</strong> {{ $curriculum->experiencia }}</p>
+            <p><strong>Formación:</strong> {{ $curriculum->formacion }}</p>
+            <p><strong>Habilidades:</strong> {{ $curriculum->habilidades }}</p>
+        </div>
     </div>
-
-    <h1 class="titulo">{{ $curriculum->nombre }}</h1>
-
-    @if($curriculum->foto)
-        <img src="{{ asset('storage/' . $curriculum->foto) }}" class="foto-grande" alt="Foto del curriculum">
-    @endif
-
-    <p><strong>DNI:</strong> {{ $curriculum->dni }}</p>
-    <p><strong>Dirección:</strong> {{ $curriculum->direccion }}</p>
-    <p><strong>Nota media:</strong> {{ $curriculum->nota_media }}</p>
-
-    <h3>Skills:</h3>
-    <p>{{ $curriculum->skills }}</p>
-
 </div>
 @endsection

@@ -11,12 +11,18 @@ class Curriculum extends Model
     use HasFactory;
 
     protected $table = 'curricula';
-    protected $fillable = [
-        'nombre',
-        'dni',
-        'direccion',
-        'nota_media',
-        'skills',
-        'foto',
+    protected $casts = [
+    'fecha_nacimiento' => 'date',
     ];
+    protected $fillable = [
+    'nombre',
+    'apellidos',
+    'telefono',
+    'correo',
+    'nota_media',
+    'experiencia',
+    'formacion',
+    'habilidades',
+    'fotografia',
+];
 }

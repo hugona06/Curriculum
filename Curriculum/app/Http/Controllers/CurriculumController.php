@@ -13,38 +13,40 @@ class CurriculumController extends Controller
         $curriculums = Curriculum::all();
         return view('curriculums.index', compact('curriculums'));
     }
+
     public function create()
     {
         return view('curriculums.create');
     }
 
     public function store(Request $request)
-{
-    try {
-        $data = $request->only(['nombre', 'dni', 'direccion', 'nota_media', 'skills', 'foto']);
+    {
+        try {
+            $data = $request->only([
+                'nombre', 'apellidos', 'telefono', 'correo', 'fecha_nacimiento',
+                'nota_media', 'experiencia', 'formacion', 'habilidades'
+            ]);
 
-        $errors = [];
-        if (empty($data['nombre'])) $errors['nombre'] = 'Campo obligatorio de rellenar';
-        if (empty($data['dni'])) $errors['dni'] = 'Campo obligatorio de rellenar';
-        if (empty($data['direccion'])) $errors['direccion'] = 'Campo obligatorio de rellenar';
+            $errors = [];
+            if (empty($data['nombre'])) $errors['nombre'] = 'Campo obligatorio';
+            if (empty($data['apellidos'])) $errors['apellidos'] = 'Campo obligatorio';
 
-        if (!empty($errors)) {
-            return back()->withErrors($errors)->withInput();
+            if (!empty($errors)) {
+                return back()->withErrors($errors)->withInput();
+            }
+
+            if ($request->hasFile('fotografia')) {
+                $data['fotografia'] = $request->file('fotografia')->store('fotos', 'public');
+            }
+
+            Curriculum::create($data);
+
+            return redirect()->route('curriculums.index')->with('success', 'Curriculum creado con éxito');
+
+        } catch (\Exception $e) {
+            return back()->withErrors(['general' => 'Error al guardar el curriculum: ' . $e->getMessage()])->withInput();
         }
-
-        if ($request->hasFile('foto')) {
-            $data['foto'] = $request->file('foto')->store('fotos', 'public');
-        }
-
-        Curriculum::create($data);
-
-        return redirect()->route('curriculums.index')->with('success', 'Curriculum creado con éxito');
-
-    } catch (\Exception $e) {
-        return back()->withErrors(['general' => 'Error al guardar el curriculum: ' . $e->getMessage()])->withInput();
     }
-}
-
 
     public function show(Curriculum $curriculum)
     {
@@ -58,35 +60,48 @@ class CurriculumController extends Controller
 
     public function update(Request $request, Curriculum $curriculum)
     {
-        $data = $request->validate([
-            'nombre' => 'required|string|max:255',
-            'dni' => 'required|string|max:20|unique:curricula,dni,' . $curriculum->id,
-            'direccion' => 'nullable|string|max:255',
-            'nota_media' => 'nullable|numeric',
-            'skills' => 'nullable|string',
-            'foto' => 'nullable|image|max:2048',
-        ]);
+        try {
+            $data = $request->only([
+                'nombre', 'apellidos', 'telefono', 'correo', 'fecha_nacimiento',
+                'nota_media', 'experiencia', 'formacion', 'habilidades'
+            ]);
 
-        if ($request->hasFile('foto')) {
-            if ($curriculum->foto) {
-                Storage::disk('public')->delete($curriculum->foto);
+            $errors = [];
+            if (empty($data['nombre'])) $errors['nombre'] = 'Campo obligatorio';
+            if (empty($data['apellidos'])) $errors['apellidos'] = 'Campo obligatorio';
+
+            if (!empty($errors)) {
+                return back()->withErrors($errors)->withInput();
             }
-            $data['foto'] = $request->file('foto')->store('fotos', 'public');
+
+            if ($request->hasFile('fotografia')) {
+                if ($curriculum->fotografia) {
+                    Storage::disk('public')->delete($curriculum->fotografia);
+                }
+                $data['fotografia'] = $request->file('fotografia')->store('fotos', 'public');
+            }
+
+            $curriculum->update($data);
+
+            return redirect()->route('curriculums.index')->with('success', 'Curriculum actualizado con éxito');
+
+        } catch (\Exception $e) {
+            return back()->withErrors(['general' => 'Error al actualizar el curriculum: ' . $e->getMessage()])->withInput();
         }
-
-        $curriculum->update($data);
-
-        return redirect()->route('curriculums.index')->with('success', 'Curriculum actualizado con éxito');
     }
 
     public function destroy(Curriculum $curriculum)
     {
-        if ($curriculum->foto) {
-            Storage::disk('public')->delete($curriculum->foto);
+        try {
+            if ($curriculum->fotografia) {
+                Storage::disk('public')->delete($curriculum->fotografia);
+            }
+
+            $curriculum->delete();
+
+            return redirect()->route('curriculums.index')->with('success', 'Curriculum eliminado');
+        } catch (\Exception $e) {
+            return back()->withErrors(['general' => 'Error al eliminar el curriculum: ' . $e->getMessage()]);
         }
-
-        $curriculum->delete();
-
-        return redirect()->route('curriculums.index')->with('success', 'Curriculum eliminado');
     }
 }

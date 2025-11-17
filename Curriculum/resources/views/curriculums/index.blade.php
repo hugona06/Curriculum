@@ -6,7 +6,6 @@
 </div>
 
 <div class="container">
-
     <h1 class="titulo">Listado de Curriculums</h1>
 
     <a href="{{ route('curriculums.create') }}" class="boton-crear">Crear Curriculum</a>
@@ -20,10 +19,10 @@
     @else
         <div class="grid-cards">
             @foreach($curriculums as $curriculum)
-                <div class="card" style="background-image: url('{{ asset('storage/' . $curriculum->foto) }}')">
+                <div class="card" style="background-image: url('{{ asset('storage/' . $curriculum->fotografia) }}')">
                     <div class="card-content">
-                        <p><strong>Nombre:</strong> {{ $curriculum->nombre }}</p>
-                        <p><strong>DNI:</strong> {{ $curriculum->dni }}</p>
+                        <p><strong>Nombre:</strong> {{ $curriculum->nombre }} {{ $curriculum->apellidos }}</p>
+                        <p><strong>Teléfono:</strong> {{ $curriculum->telefono }}</p>
                         <p><strong>Nota media:</strong> {{ $curriculum->nota_media }}</p>
                         <div class="botones">
                             <a href="{{ route('curriculums.show', $curriculum->id) }}" class="boton-ver">Ver</a>
