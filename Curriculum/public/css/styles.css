@@ -1,0 +1,226 @@
+body {
+    background-color: #f0f4f8;
+    color: #1f2937;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.titulo {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.barra-superior {
+    width: 100%;
+    background-color: #2563eb;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.barra-superior a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.alert-success {
+    background-color: #d1fae5;
+    color: #065f46;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid #10b981;
+}
+
+.boton-crear {
+    background-color: #2563eb;
+    color: white;
+    padding: 0.65rem 1.25rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.boton-crear:hover {
+    background-color: #1e40af;
+}
+
+.grid-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.card {
+    position: relative;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    height: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1rem;
+    color: #ffffff;
+    cursor: pointer;
+    transition: border 0.3s, transform 0.2s;
+    border: 2px solid transparent;
+    background-color: #111827;
+    background-size: cover;
+    background-position: center;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    filter: grayscale(100%) brightness(50%);
+    z-index: 0;
+}
+
+.card-content {
+    position: relative;
+    z-index: 1;
+}
+
+.card p {
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+}
+
+.card:hover {
+    border-color: #2563eb;
+    transform: translateY(-3px);
+}
+
+.boton-ver {
+    background-color: #16a34a;
+    color: white;
+    padding: 0.45rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.boton-ver:hover {
+    background-color: #15803d;
+}
+
+.boton-editar {
+    background-color: #facc15;
+    color: #1f2937;
+    padding: 0.45rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.boton-editar:hover {
+    background-color: #eab308;
+}
+
+.boton-borrar {
+    background-color: #dc2626;
+    color: white;
+    padding: 0.45rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.boton-borrar:hover {
+    background-color: #b91c1c;
+}
+
+.foto-grande {
+    width: 250px;
+    height: auto;
+    margin-bottom: 1rem;
+    border-radius: 0.75rem;
+}
+
+.grupo-input {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    padding: 0.5rem;
+    border: 1px solid #9ca3af;
+    border-radius: 0.5rem;
+}
+
+.error-campo {
+    color: #dc2626;
+    margin-bottom: 0.3rem;
+}
+
+.error-general {
+    color: #dc2626;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.botones {
+    display: flex;
+    gap: 0.7rem;
+    margin-top: 1rem;
+}
+
+.boton-guardar,
+.boton-crear {
+    background-color: #377dff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.boton-guardar:hover,
+.boton-crear:hover {
+    background-color: #0056d1;
+}
+
+.boton-volver-form {
+    background-color: #f1f1f1;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.boton-volver-form:hover {
+    background-color: #ddd;
+    color: #000;
+}
